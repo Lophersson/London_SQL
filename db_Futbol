@@ -1,0 +1,73 @@
+https://www.kiabi.es/abrigo-largo-de-mezcla-de-lana-marron_P914780C914783?utm_adgroup=&utm_adgroupid=&utm_campaign=ES+-+PM+-+High+Revenue&utm_campaignid=20226818145&utm_medium=cpc&utm_source=google&utm_term=&gad_source=1&gclid=EAIaIQobChMIycX1lrq9igMVKzkGAB0jbQlCEAQYAiABEgICyPD_BwE&gclsrc=aw.ds
+https://www.kiabi.es/abrigo-de-mezcla-de-lana-marron_P909235C909236
+
+Base de datos de fútbol, con información de los jugadores, de los equipos y de los campos.
+
+Liga de fútbol local muy sencilla:
+
+  jugadores: dni, nombre, fecha_nacimiento.
+  equipo: nombre.
+  campo: nombre, ano_creacion.
+
+Guardar fechas de alta y baja de los jugadores en los equipos.
+Un jugador no puede jugar en dos equipos a la vez.
+
+1 campo N equipos
+1 equipo 1 campo
+1 jugador N equipos
+1 equipo N jugadores
+---
+CREATE DATABASE Futbol;
+
+USE Futbol;
+
+CREATE TABLE Campos (
+    id_campo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_campo VARCHAR(100) NOT NULL,
+    ano_creacion YEAR NOT NULL
+);
+
+CREATE TABLE Equipos (
+    id_equipo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_equipo VARCHAR(100) NOT NULL,
+    id_campo INT NOT NULL,
+    FOREIGN KEY (id_campo) REFERENCES Campos(id_campo)
+);
+
+CREATE TABLE Jugadores (
+    dni VARCHAR(20) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    fecha_nac DATE NOT NULL
+);
+
+CREATE TABLE Jugadores_Equipos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    dni VARCHAR(20) NOT NULL,
+    id_equipo INT NOT NULL,
+    fecha_alta DATE NOT NULL,
+    fecha_baja DATE,
+    FOREIGN KEY (dni) REFERENCES Jugadores(dni),
+    FOREIGN KEY (id_equipo) REFERENCES Equipos(id_equipo),
+    CONSTRAINT unico_jugador_activo UNIQUE (dni, fecha_baja)
+);
+
+-- Campos
+INSERT INTO Campos (nombre_campo, ano_creacion)
+VALUES ('Estadio Municipal', 1980), 
+       ('Campo La Rosaleda', 1975);
+
+-- Equipos
+INSERT INTO Equipos (nombre_equipo, id_campo)
+VALUES ('Equipo A', 1), 
+       ('Equipo B', 2);
+
+-- Jugadores
+INSERT INTO Jugadores (dni, nombre, fecha_nac)
+VALUES ('12345678A', 'Juan Pérez', '1990-05-10'),
+       ('87654321B', 'Carlos López', '1995-09-15');
+
+-- Jugadores en equipos
+INSERT INTO Jugadores_Equipos (dni, id_equipo, fecha_alta)
+VALUES ('12345678A', 1, '2024-01-01'),
+       ('87654321B', 2, '2024-01-10');
+---
