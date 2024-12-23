@@ -34,3 +34,41 @@ UPDATE employees
 SET City = 'Rome'
 WHERE EmployeeID IN (3);
 ---
+CREATE TABLE territories (
+    TerritoryID INT AUTO_INCREMENT PRIMARY KEY,
+    TerritoryDescription VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE employee_territory (
+    EmployeeID INT NOT NULL,
+    TerritoryID INT NOT NULL,
+    PRIMARY KEY (EmployeeID, TerritoryID),
+    FOREIGN KEY (EmployeeID) REFERENCES employees(EmployeeID),
+    FOREIGN KEY (TerritoryID) REFERENCES territories(TerritoryID)
+);
+
+INSERT INTO territories (TerritoryDescription) 
+VALUES 
+('North East'), 
+('South West'), 
+('East Coast'), 
+('West Coast'), 
+('Midwest'), 
+('Central Europe'), 
+('Northern Europe'), 
+('Southern Europe');
+
+INSERT INTO employee_territory (EmployeeID, TerritoryID)
+VALUES 
+(1, 1),  -- Employee 1 asignado al territorio "North East"
+(2, 2),  -- Employee 2 asignado al territorio "South West"
+(3, 3),  -- Employee 3 asignado al territorio "East Coast"
+(4, 4),  -- Employee 4 asignado al territorio "West Coast"
+(5, 5),  -- Employee 5 asignado al territorio "Midwest"
+(6, 6),  -- Employee 6 asignado al territorio "Central Europe"
+(7, 7),  -- Employee 7 asignado al territorio "Northern Europe"
+(8, 8),  -- Employee 8 asignado al territorio "Southern Europe"
+(9, 1),  -- Employee 9 asignado al territorio "North East"
+(10, 3); -- Employee 10 asignado al territorio "East Coast"
+---
+
