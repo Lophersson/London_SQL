@@ -1,0 +1,36 @@
+--- AÑADIR CAMPO CITY A LA TABLA EMPLOYEES ---
+ALTER TABLE employees ADD COLUMN City VARCHAR(100);
+---
+--- AÑADIR REGISTROS AL CAMPO CITY ---
+UPDATE employees
+SET City = 'London'
+WHERE EmployeeID IN (4, 7, 10);
+
+UPDATE employees
+SET City = 'New York'
+WHERE EmployeeID IN (1);
+
+UPDATE employees
+SET City = 'Paris'
+WHERE EmployeeID IN (5);
+
+UPDATE employees
+SET City = 'Berlin'
+WHERE EmployeeID IN (6);
+
+UPDATE employees
+SET City = 'Madrid'
+WHERE EmployeeID IN (2);
+
+UPDATE employees
+SET City = 'San Francisco'
+WHERE EmployeeID IN (8);
+
+UPDATE employees
+SET City = 'Los Angeles'
+WHERE EmployeeID IN (9);
+
+UPDATE employees
+SET City = 'Rome'
+WHERE EmployeeID IN (3);
+---
