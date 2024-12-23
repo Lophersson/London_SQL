@@ -1,0 +1,195 @@
+CREATE DATABASE TiendaRopa;
+
+USE TiendaRopa;
+
+-- Tabla para Calzado
+CREATE TABLE Calzado (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50),
+    color VARCHAR(30),
+    talla VARCHAR(10),
+    marca VARCHAR(50),
+    clima VARCHAR(30),
+    material VARCHAR(50),
+    fecha_adquisicion DATE,
+    descripcion TEXT
+);
+
+-- Tabla para Calcetines
+CREATE TABLE Calcetines (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50),
+    color VARCHAR(30),
+    talla VARCHAR(10),
+    marca VARCHAR(50),
+    clima VARCHAR(30),
+    material VARCHAR(50),
+    fecha_adquisicion DATE,
+    descripcion TEXT
+);
+
+-- Tabla para Bóxers
+CREATE TABLE Boxers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50),
+    color VARCHAR(30),
+    talla VARCHAR(10),
+    marca VARCHAR(50),
+    clima VARCHAR(30),
+    material VARCHAR(50),
+    fecha_adquisicion DATE,
+    descripcion TEXT
+);
+
+-- Tabla para Pantalones
+CREATE TABLE Pantalones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50),
+    color VARCHAR(30),
+    talla VARCHAR(10),
+    marca VARCHAR(50),
+    clima VARCHAR(30),
+    material VARCHAR(50),
+    fecha_adquisicion DATE,
+    descripcion TEXT
+);
+
+-- Tabla para Cinturones
+CREATE TABLE Cinturones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50),
+    color VARCHAR(30),
+    talla VARCHAR(10),
+    marca VARCHAR(50),
+    clima VARCHAR(30),
+    material VARCHAR(50),
+    fecha_adquisicion DATE,
+    descripcion TEXT
+);
+
+-- Tabla para Camisetas
+CREATE TABLE Camisetas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50),
+    color VARCHAR(30),
+    talla VARCHAR(10),
+    marca VARCHAR(50),
+    clima VARCHAR(30),
+    material VARCHAR(50),
+    fecha_adquisicion DATE,
+    descripcion TEXT
+);
+
+-- Tabla para Jerseys
+CREATE TABLE Jerseys (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50),
+    color VARCHAR(30),
+    talla VARCHAR(10),
+    marca VARCHAR(50),
+    clima VARCHAR(30),
+    material VARCHAR(50),
+    fecha_adquisicion DATE,
+    descripcion TEXT
+);
+
+-- Tabla para Cazadoras
+CREATE TABLE Cazadoras (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50),
+    color VARCHAR(30),
+    talla VARCHAR(10),
+    marca VARCHAR(50),
+    clima VARCHAR(30),
+    material VARCHAR(50),
+    fecha_adquisicion DATE,
+    descripcion TEXT
+);
+
+-- Tabla para Abrigos
+CREATE TABLE Abrigos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50),
+    color VARCHAR(30),
+    talla VARCHAR(10),
+    marca VARCHAR(50),
+    clima VARCHAR(30),
+    material VARCHAR(50),
+    fecha_adquisicion DATE,
+    descripcion TEXT
+);
+
+-- Tabla para Ropa de Invierno
+CREATE TABLE Ropa_De_Invierno (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50),
+    color VARCHAR(30),
+    talla VARCHAR(10),
+    marca VARCHAR(50),
+    clima VARCHAR(30),
+    material VARCHAR(50),
+    fecha_adquisicion DATE,
+    descripcion TEXT
+);
+
+-- Registros para Calzado
+INSERT INTO Calzado (tipo, color, talla, marca, clima, material, fecha_adquisicion, descripcion) VALUES
+('Bota alta', 'Negro', '41', 'Dr. Martens', 'Invierno', 'Piel', '2024-11-25', 'Botas altas tipo militar de 14 ojalillos con cordones de 240cm.'),
+('Deportiva', 'Blanco', '42', 'Nike', 'Primavera', 'Sintético', '2023-08-10', 'Zapatillas deportivas para correr con suela antideslizante.'),
+('Sandalia', 'Marrón', '40', 'Birkenstock', 'Verano', 'Cuero', '2022-06-15', 'Sandalias cómodas con diseño anatómico.');
+
+-- Registros para Calcetines
+INSERT INTO Calcetines (tipo, color, talla, marca, clima, material, fecha_adquisicion, descripcion) VALUES
+('Deportivos', 'Blanco', 'M', 'Adidas', 'Primavera', 'Algodón', '2024-03-12', 'Calcetines tobilleros deportivos.'),
+('Lana', 'Gris', 'L', 'Uniqlo', 'Invierno', 'Lana', '2023-12-01', 'Calcetines gruesos para bajas temperaturas.'),
+('Formales', 'Negro', 'M', 'Calvin Klein', 'Otoño', 'Algodón', '2022-09-05', 'Calcetines largos ideales para traje.');
+
+-- Registros para Bóxers
+INSERT INTO Boxers (tipo, color, talla, marca, clima, material, fecha_adquisicion, descripcion) VALUES
+('Clásico', 'Negro', 'M', 'Calvin Klein', 'Todo clima', 'Algodón', '2023-04-10', 'Bóxer clásico con banda elástica cómoda.'),
+('Deportivo', 'Gris', 'L', 'Nike', 'Primavera', 'Poliéster', '2023-08-20', 'Bóxer transpirable ideal para actividades físicas.'),
+('Con estampado', 'Rojo y blanco', 'S', 'Tommy Hilfiger', 'Verano', 'Algodón', '2022-11-15', 'Bóxer con diseño a rayas.');
+
+-- Registros para Pantalones
+INSERT INTO Pantalones (tipo, color, talla, marca, clima, material, fecha_adquisicion, descripcion) VALUES
+('Vaquero', 'Azul', '32', 'Levi\'s', 'Todo clima', 'Denim', '2023-09-18', 'Pantalones vaqueros clásicos de corte recto.'),
+('Chinos', 'Beige', '34', 'Dockers', 'Primavera', 'Algodón', '2024-01-20', 'Pantalones chinos cómodos y ligeros.'),
+('Deportivo', 'Negro', 'M', 'Adidas', 'Invierno', 'Poliéster', '2022-12-10', 'Pantalón deportivo con forro térmico.');
+
+-- Registros para Cinturones
+INSERT INTO Cinturones (tipo, color, talla, marca, clima, material, fecha_adquisicion, descripcion) VALUES
+('Formal', 'Negro', 'M', 'Hugo Boss', 'Todo clima', 'Cuero', '2024-04-10', 'Cinturón de vestir con hebilla plateada.'),
+('Casual', 'Marrón', 'L', 'Levi\'s', 'Primavera', 'Cuero', '2023-07-15', 'Cinturón casual con diseño trenzado.'),
+('Deportivo', 'Negro', 'M', 'Nike', 'Verano', 'Sintético', '2023-05-08', 'Cinturón elástico ajustable.');
+
+-- Registros para Camisetas
+INSERT INTO Camisetas (tipo, color, talla, marca, clima, material, fecha_adquisicion, descripcion) VALUES
+('Manga corta', 'Blanco', 'M', 'H&M', 'Verano', 'Algodón', '2024-06-10', 'Camiseta básica de manga corta.'),
+('Manga larga', 'Negro', 'L', 'Uniqlo', 'Otoño', 'Algodón', '2023-10-05', 'Camiseta térmica de manga larga.'),
+('Deportiva', 'Azul', 'S', 'Under Armour', 'Primavera', 'Poliéster', '2023-03-18', 'Camiseta ligera para entrenamiento.');
+
+-- Registros para Jerseys
+INSERT INTO Jerseys (tipo, color, talla, marca, clima, material, fecha_adquisicion, descripcion) VALUES
+('De punto', 'Gris', 'M', 'Zara', 'Invierno', 'Lana', '2023-11-10', 'Jersey grueso de punto.'),
+('Cuello alto', 'Negro', 'L', 'Massimo Dutti', 'Otoño', 'Cachemir', '2024-09-01', 'Jersey de cuello alto elegante.'),
+('Con cremallera', 'Azul marino', 'M', 'Tommy Hilfiger', 'Primavera', 'Algodón', '2022-10-25', 'Jersey con cremallera y diseño casual.');
+
+-- Registros para Cazadoras
+INSERT INTO Cazadoras (tipo, color, talla, marca, clima, material, fecha_adquisicion, descripcion) VALUES
+('De cuero', 'Negro', 'M', 'Schott', 'Invierno', 'Cuero', '2024-01-05', 'Cazadora biker clásica.'),
+('Vaquera', 'Azul', 'L', 'Levi\'s', 'Primavera', 'Denim', '2023-08-15', 'Cazadora vaquera con forro ligero.'),
+('Deportiva', 'Rojo', 'S', 'Adidas', 'Otoño', 'Poliéster', '2023-05-22', 'Cazadora con capucha para actividades al aire libre.');
+
+-- Registros para Abrigos
+INSERT INTO Abrigos (tipo, color, talla, marca, clima, material, fecha_adquisicion, descripcion) VALUES
+('Largo', 'Negro', 'L', 'Burberry', 'Invierno', 'Lana', '2024-11-05', 'Abrigo largo con diseño clásico.'),
+('Parka', 'Verde oliva', 'M', 'North Face', 'Invierno', 'Sintético', '2023-12-20', 'Parka con capucha y forro térmico.'),
+('Plumas', 'Azul', 'S', 'Columbia', 'Invierno', 'Poliéster', '2023-10-10', 'Abrigo de plumas ultraligero.');
+
+-- Registros para Ropa de Invierno
+INSERT INTO Ropa_De_Invierno (tipo, color, talla, marca, clima, material, fecha_adquisicion, descripcion) VALUES
+('Bufanda', 'Gris', 'Única', 'Zara', 'Invierno', 'Lana', '2024-01-15', 'Bufanda larga de lana.'),
+('Guantes', 'Negro', 'M', 'Uniqlo', 'Invierno', 'Sintético', '2023-12-01', 'Guantes térmicos para bajas temperaturas.'),
+('Gorro', 'Rojo', 'Única', 'H&M', 'Invierno', 'Algodón', '2023-11-25', 'Gorro tejido con pompón decorativo.');
+
+---
