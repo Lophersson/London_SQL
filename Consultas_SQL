@@ -32,3 +32,11 @@ FROM
 LEFT JOIN employeeTerritories ON employeeTerritories.EmployeeID = employees.EmployeeID 
 LEFT JOIN territories ON territories.TerritoryID = employeeTerritories.TerritoryID;
 ---
+SELECT
+	employees.FirstName,
+	territories.TerritoryDescription
+FROM
+	employees
+LEFT JOIN employeeTerritories ON employeeTerritories.EmployeeID = employees.EmployeeID 
+LEFT JOIN territories ON territories.TerritoryID = employeeTerritories.TerritoryID;
+---
