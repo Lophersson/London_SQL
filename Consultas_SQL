@@ -20,3 +20,15 @@ WHERE employees.City = 'London'
   AND
   shippers.ShipperName LIKE 'A%';
 ---
+
+3
+--- OBTENER EL NOMBRE DEL EMPLEADO Y LA DESCRIPCIÓN DEL TERRITORIO ---
+SELECT
+	employees.FirstName,
+	territories.TerritoryID,
+	territories.TerritoryDescription
+FROM
+	employees
+LEFT JOIN employeeTerritories ON employeeTerritories.EmployeeID = employees.EmployeeID 
+LEFT JOIN territories ON territories.TerritoryID = employeeTerritories.TerritoryID;
+---
