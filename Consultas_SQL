@@ -1,0 +1,22 @@
+1
+--- OBTENER LOS ID DE LOS PEDIDOS, EL NOMBRE DE LA COMPAÑIA DE REPARTO, FECHA DE PEDIDO Y NÚMERO DE TELÉFONO DE LA COMPAÑIA DE TELÉFONO ---
+SELECT orders.OrderID, orders.OrderDate, shippers.ShipperName, shippers.Phone
+FROM orders
+LEFT JOIN shippers ON orders.ShipVia = shippers.ShipperID;
+---
+
+2
+--- OBTENER LOS DATOS DE LOS ID DE LOS PEDIDOS, FECHA DEL PEDIDO, NOMBRE DE LA COMPAÑIA DE REPARTO, TELÉFONO DE LA COMPAÑIA DE REPARTO, PEDIDOS GESTIONADOS POR EMPLEADOS RESIDENTES EN LONDRES Y QUE EL NOMBRE DE LA COMPAÑIA EMPIECE POR A ---
+SELECT orders.OrderID, 
+       orders.OrderDate, 
+       shippers.ShipperName, 
+       shippers.Phone AS ShipperPhone
+FROM orders
+LEFT JOIN shippers ON shippers.ShipperID = orders.ShipVia 
+LEFT JOIN employees ON employees.EmployeeID = orders.EmployeeID 
+WHERE employees.City = 'London'
+  AND
+  YEAR (orders.OrderDate) = 1998
+  AND
+  shippers.ShipperName LIKE 'A%';
+---
