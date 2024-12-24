@@ -1,0 +1,47 @@
+SELECT employee.EmployeeID, employee.FirstName, boss.FirstName
+FROM employees AS employee
+LEFT JOIN employees AS boss ON employee.EmployeeID = boss.ReportsTo
+---
+ALTER TABLE employees
+ADD COLUMN ReportsTo INT;
+---
+UPDATE employees
+SET ReportsTo = 2
+WHERE EmployeeID = 1;
+
+UPDATE employees
+SET ReportsTo = 3
+WHERE EmployeeID = 2;
+
+UPDATE employees
+SET ReportsTo = 4
+WHERE EmployeeID = 3;
+
+UPDATE employees
+SET ReportsTo = 5
+WHERE EmployeeID = 4;
+
+UPDATE employees
+SET ReportsTo = 6
+WHERE EmployeeID = 5;
+
+UPDATE employees
+SET ReportsTo = 7
+WHERE EmployeeID = 6;
+
+UPDATE employees
+SET ReportsTo = 8
+WHERE EmployeeID = 7;
+
+UPDATE employees
+SET ReportsTo = 9
+WHERE EmployeeID = 8;
+
+UPDATE employees
+SET ReportsTo = 10
+WHERE EmployeeID = 9;
+
+UPDATE employees
+SET ReportsTo = 1
+WHERE EmployeeID = 10;
+---
