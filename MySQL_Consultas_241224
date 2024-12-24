@@ -11,6 +11,18 @@ LEFT JOIN orderdetails ON orderdetails.OrderID = orders.OrderID
 LEFT JOIN products ON products.ProductID = orderdetails.ProductID
 WHERE products.CategoryID = 2
 ---
+3
+SELECT *
+FROM orderdetails
+ORDER BY unitPrice DESC
+LIMIT 3;
+---
+4
+SELECT CustomerName, CustomerPhone
+FROM customers
+UNION
+SELECT SupplierName, suppliers.Phone
+FROM suppliers;
 ---
 ALTER TABLE employees
 ADD COLUMN ReportsTo INT;
