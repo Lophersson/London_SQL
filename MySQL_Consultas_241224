@@ -45,3 +45,7 @@ UPDATE employees
 SET ReportsTo = 1
 WHERE EmployeeID = 10;
 ---
+SELECT employee.EmployeeID, employee.FirstName, boss.FirstName
+FROM employees AS employee
+LEFT JOIN employees AS boss ON employee.EmployeeID = boss.ReportsTo
+---
