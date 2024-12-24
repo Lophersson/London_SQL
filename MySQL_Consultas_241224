@@ -49,3 +49,7 @@ SELECT employee.EmployeeID, employee.FirstName, boss.FirstName
 FROM employees AS employee
 LEFT JOIN employees AS boss ON employee.EmployeeID = boss.ReportsTo
 ---
+SELECT employee.EmployeeID, employee.FirstName AS employee, boss.FirstName AS boss
+FROM employees AS employee
+LEFT JOIN employees AS boss ON employee.EmployeeID = boss.ReportsTo
+---
