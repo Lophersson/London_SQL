@@ -48,6 +48,43 @@ INSERT INTO especie (nombre) VALUES
 ('Elefante'), 
 ('Delfín');
 
+---
+https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa700003
+---
+@startuml
+!define primary_key(x) <b>x</b>
+!define foreign_key(x) <i>x</i>
+
+entity "areas" as areas {
+    primary_key(id_area): INT
+    nombre_area: VARCHAR(100)
+}
+
+entity "recintos" as recintos {
+    primary_key(id_recinto): INT
+    nombre_recinto: VARCHAR(100)
+    foreign_key(id_area): INT
+}
+
+entity "especies" as especies {
+    primary_key(id_especie): INT
+    nombre_especie: VARCHAR(100)
+}
+
+entity "animales" as animales {
+    primary_key(id_animal): INT
+    nombre_animal: VARCHAR(100)
+    foreign_key(id_especie): INT
+    foreign_key(id_recinto): INT
+}
+
+areas ||--o{ recintos : "Contiene"
+recintos ||--o{ animales : "Ubica"
+especies ||--o{ animales : "Pertenece"
+
+@enduml
+---
+
 -- Tabla animal
 INSERT INTO animal (nombre, idespecie, idrecinto) VALUES 
 ('Shere Khan', 1, 1), 
