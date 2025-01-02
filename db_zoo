@@ -1,0 +1,55 @@
+-- Creación de la base de datos
+CREATE DATABASE Zoologico;
+USE Zoologico;
+
+-- Tabla area
+CREATE TABLE area (
+    idarea INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+-- Tabla recinto
+CREATE TABLE recinto (
+    idrecinto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    idarea INT NOT NULL,
+    FOREIGN KEY (idarea) REFERENCES area(idarea)
+);
+
+-- Tabla especie
+CREATE TABLE especie (
+    idespecie INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+-- Tabla animal
+CREATE TABLE animal (
+    idanimal INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    idespecie INT NOT NULL,
+    idrecinto INT NOT NULL,
+    FOREIGN KEY (idespecie) REFERENCES especie(idespecie),
+    FOREIGN KEY (idrecinto) REFERENCES recinto(idrecinto)
+);
+
+-- Insertar datos de ejemplo
+-- Tabla area
+INSERT INTO area (nombre) VALUES ('Selva'), ('Sabana'), ('Acuático');
+
+-- Tabla recinto
+INSERT INTO recinto (nombre, idarea) VALUES 
+('Jaula de Tigres', 1), 
+('Pradera de Elefantes', 2), 
+('Acuario de Delfines', 3);
+
+-- Tabla especie
+INSERT INTO especie (nombre) VALUES 
+('Tigre'), 
+('Elefante'), 
+('Delfín');
+
+-- Tabla animal
+INSERT INTO animal (nombre, idespecie, idrecinto) VALUES 
+('Shere Khan', 1, 1), 
+('Dumbo', 2, 2), 
+('Flipper', 3, 3);
