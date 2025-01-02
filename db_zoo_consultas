@@ -1,0 +1,5 @@
+SELECT area.nombre AS nombreAREA, animal.nombre AS nombreANIMAL
+FROM area
+INNER JOIN recinto ON recinto.idarea
+INNER JOIN animal ON animal.idrecinto
+---
