@@ -1,0 +1,24 @@
+ALTER TABLE orderdetails
+ADD COLUMN Discount DECIMAL(5, 2);
+
+UPDATE orderdetails
+SET Discount = ROUND((FLOOR(10 + (RAND() * 6) * 5) / 100), 2)
+WHERE OrderDetailID BETWEEN 1 AND 527;
+---
+SELECT
+    orderID,
+    SUM(unitprice * quantity * (1 - Discount)) AS TOTAL
+FROM
+    orderdetails
+GROUP BY
+    orderID;
+---
+SELECT
+    orderID,
+    SUM(unitprice * quantity) AS INICIAL,
+    SUM(unitprice * quantity * (1 - Discount)) AS TOTAL
+FROM
+    orderdetails
+GROUP BY
+    orderID;
+---
