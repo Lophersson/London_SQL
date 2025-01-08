@@ -1,0 +1,25 @@
+SELECT
+COUNT(products.ProductName) AS numero,
+categories.CategoryName AS nombre_categoria
+FROM
+products
+LEFT JOIN
+categories
+ON
+categories.categoryID = products.categoryID
+GROUP BY
+categories.CategoryName
+  ---
+SELECT
+COUNT(products.ProductID) AS numero,
+categories.CategoryName AS nombre_categoria
+FROM
+categories
+LEFT JOIN
+products
+ON
+categories.categoryID = products.categoryID
+GROUP BY
+categories.CategoryName
+  ---
+  
