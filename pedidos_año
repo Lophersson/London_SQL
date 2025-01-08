@@ -1,0 +1,17 @@
+SELECT COUNT(orderID) AS Cantidad_de_Pedidos, YEAR(OrderDate) AS Year
+FROM orders
+GROUP BY YEAR(OrderDate)
+ORDER BY Year;
+---
+SELECT YEAR(OrderDate) AS Year, COUNT(orderID) AS numero_pedidos
+FROM orders
+WHERE YEAR(OrderDate) = 1996
+GROUP BY YEAR(OrderDate);
+---
+SELECT e.EmployeeID, e.FirstName, COUNT(o.orderID) AS numero_pedidos
+FROM orders o
+JOIN employees e ON o.EmployeeID = e.EmployeeID
+WHERE YEAR(o.OrderDate) = 1996
+GROUP BY e.EmployeeID, e.FirstName
+ORDER BY numero_pedidos DESC;
+---
