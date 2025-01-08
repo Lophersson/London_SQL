@@ -23,3 +23,11 @@ GROUP BY e.EmployeeID, e.FirstName
 HAVING COUNT(o.orderID) > 1
 ORDER BY numero_pedidos DESC;
 ---
+SELECT e.EmployeeID, e.FirstName, COUNT(o.orderID) AS numero_pedidos
+FROM employees e
+LEFT JOIN orders o ON e.EmployeeID = o.EmployeeID
+WHERE YEAR(o.OrderDate) = 1996
+GROUP BY e.EmployeeID, e.FirstName
+HAVING COUNT(o.orderID) > 1
+ORDER BY e.FirstName DESC;
+---
