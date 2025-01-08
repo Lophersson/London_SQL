@@ -1,0 +1,15 @@
+SELECT c.CategoryName, COUNT(o.orderID) AS numero_pedidos
+FROM orders o
+JOIN orderdetails od ON o.orderID = od.orderID
+JOIN products p ON od.ProductID = p.ProductID
+JOIN categories c ON p.CategoryID = c.CategoryID
+GROUP BY c.CategoryName
+ORDER BY numero_pedidos DESC;
+---
+SELECT c.CategoryName, COUNT(DISTINCT od.orderID) AS numero_pedidos
+FROM categories c
+LEFT JOIN products p ON p.CategoryID = c.CategoryID
+LEFT JOIN orderdetails od ON p.ProductID = od.ProductID
+GROUP BY c.CategoryName
+ORDER BY numero_pedidos DESC;
+---
