@@ -1,0 +1,65 @@
+-- Crear la base de datos
+CREATE DATABASE elecciones;
+
+-- Usar la base de datos
+USE elecciones;
+
+-- Crear la tabla "partido"
+CREATE TABLE partido (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+-- Crear la tabla "provincia"
+CREATE TABLE provincia (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+-- Crear la tabla "partido_provincia"
+CREATE TABLE partido_provincia (
+    partido_id INT NOT NULL,
+    provincia_id INT NOT NULL,
+    numero_votos INT NOT NULL,
+    PRIMARY KEY (partido_id, provincia_id),
+    FOREIGN KEY (partido_id) REFERENCES partido(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (provincia_id) REFERENCES provincia(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Insertar datos en la tabla "partido"
+INSERT INTO partido (nombre) VALUES ('PSOE');
+INSERT INTO partido (nombre) VALUES ('PP');
+INSERT INTO partido (nombre) VALUES ('BNG');
+INSERT INTO partido (nombre) VALUES ('Sumar');
+
+-- Insertar datos en la tabla "provincia"
+INSERT INTO provincia (nombre) VALUES ('A Coruña');
+INSERT INTO provincia (nombre) VALUES ('Lugo');
+INSERT INTO provincia (nombre) VALUES ('Pontevedra');
+INSERT INTO provincia (nombre) VALUES ('Ourense');
+
+-- Insertar datos en la tabla "partido_provincia"
+-- PSOE
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (1, 1, 5000); -- PSOE en A Coruña
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (1, 2, 3000); -- PSOE en Lugo
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (1, 3, 4500); -- PSOE en Pontevedra
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (1, 4, 2500); -- PSOE en Ourense
+
+-- PP
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (2, 1, 4000); -- PP en A Coruña
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (2, 2, 3500); -- PP en Lugo
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (2, 3, 3000); -- PP en Pontevedra
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (2, 4, 3200); -- PP en Ourense
+
+-- BNG
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (3, 1, 2000); -- BNG en A Coruña
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (3, 2, 2500); -- BNG en Lugo
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (3, 3, 1500); -- BNG en Pontevedra
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (3, 4, 1000); -- BNG en Ourense
+
+-- Sumar
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (4, 1, 1000); -- Sumar en A Coruña
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (4, 2, 1500); -- Sumar en Lugo
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (4, 3, 1200); -- Sumar en Pontevedra
+INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (4, 4, 900); -- Sumar en Ourense
+---
