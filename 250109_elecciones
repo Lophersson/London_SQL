@@ -63,3 +63,24 @@ INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (4
 INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (4, 3, 1200); -- Sumar en Pontevedra
 INSERT INTO partido_provincia (partido_id, provincia_id, numero_votos) VALUES (4, 4, 900); -- Sumar en Ourense
 ---
+SELECT 
+    p.nombre AS partido, 
+    pr.nombre AS provincia, 
+    pp.numero_votos
+FROM 
+    partido_provincia pp
+JOIN 
+    partido p ON pp.partido_id = p.id
+JOIN 
+    provincia pr ON pp.provincia_id = pr.id;
+---
+SELECT 
+    p.nombre AS partido, 
+    SUM(pp.numero_votos) AS votos_totales
+FROM 
+    partido_provincia pp
+LEFT JOIN 
+    partido p ON pp.partido_id = p.id
+GROUP BY 
+    p.id;
+---
