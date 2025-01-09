@@ -84,3 +84,15 @@ LEFT JOIN
 GROUP BY 
     p.id;
 ---
+SELECT 
+    p.nombre AS partido, 
+    SUM(pp.numero_votos) AS votos_totales
+FROM 
+    partido_provincia pp
+LEFT JOIN 
+    partido p ON pp.partido_id = p.id
+GROUP BY 
+    p.id
+HAVING 
+    SUM(pp.numero_votos) > 10000;
+---
