@@ -1,0 +1,84 @@
+-- Crear la base de datos
+DROP DATABASE IF EXISTS zoo;
+CREATE DATABASE IF NOT EXISTS zoo;
+USE zoo;
+
+-- Eliminar tablas si existen
+DROP TABLE IF EXISTS animal;
+DROP TABLE IF EXISTS recinto;
+DROP TABLE IF EXISTS area;
+DROP TABLE IF EXISTS especie;
+
+-- Crear las tablas
+
+-- Crear la tabla especie
+CREATE TABLE especie (
+    id VARCHAR(32) NOT NULL,
+    nombre VARCHAR(150) NOT NULL,
+    CONSTRAINT PK_especie PRIMARY KEY (id)
+);
+    CREATE UNIQUE INDEX CC_especie ON especie(nombre);
+
+-- Crear la tabla area
+CREATE TABLE area (
+    codigo VARCHAR(32) NOT NULL,
+    nombre VARCHAR(150) NOT NULL,
+   CONSTRAINT PK_area PRIMARY KEY (codigo)
+);
+    CREATE UNIQUE INDEX CC_area ON area(nombre);
+
+-- Crear la tabla recinto
+CREATE TABLE recinto (
+    codigo INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(150) NOT NULL,
+    area_codigo VARCHAR(32) NOT NULL,
+     CONSTRAINT PK_recinto PRIMARY KEY (codigo)
+);
+    CREATE UNIQUE INDEX CC_recinto ON recinto(nombre);
+
+-- Crear la tabla animal
+CREATE TABLE animal (
+    id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(150) NOT NULL,
+    especie_id INT NOT NULL,
+    recinto_codigo INT NOT NULL,
+    CONSTRAINT PK_recinto PRIMARY KEY (codigo)
+);
+    CREATE UNIQUE INDEX CC_recinto ON recinto(nombre);
+
+-- Verificar y eliminar claves foráneas si existen
+
+-- Comprobar y eliminar la clave foránea FK_animal_especie_id
+SELECT CONSTRAINT_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'animal'
+  AND CONSTRAINT_NAME = 'FK_animal_especie_id'
+  AND TABLE_SCHEMA = 'zoo';
+
+-- Eliminar la clave foránea FK_animal_especie_id si existe
+ALTER TABLE animal
+DROP FOREIGN KEY FK_animal_especie_id;
+
+-- Comprobar y eliminar la clave foránea FK_animal_recinto_codigo
+SELECT CONSTRAINT_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'animal'
+  AND CONSTRAINT_NAME = 'FK_animal_recinto_codigo'
+  AND TABLE_SCHEMA = 'zoo';
+
+-- Eliminar la clave foránea FK_animal_recinto_codigo si existe
+ALTER TABLE animal
+DROP FOREIGN KEY FK_animal_recinto_codigo;
+
+-- Comprobar y eliminar la clave foránea FK_recinto_area_codigo
+SELECT CONSTRAINT_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'recinto'
+  AND CONSTRAINT_NAME = 'FK_recinto_area_codigo'
+  AND TABLE_SCHEMA = 'zoo';
+
+-- Eliminar la clave foránea FK_recinto_area_codigo si existe
+ALTER TABLE recinto
+DROP FOREIGN KEY FK_recinto_area_codigo;
+
+-- Ahora las claves foráneas se eliminarán si existían y las tablas se han creado correctamente
