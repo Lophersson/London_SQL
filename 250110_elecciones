@@ -1,6 +1,6 @@
 -- Crear la base de datos y usarla
-CREATE DATABASE IF NOT EXISTS elecciones;
-USE elecciones;
+CREATE DATABASE IF NOT EXISTS partidos_politicos;
+USE partidos_politicos;
 
 -- Eliminar las claves foráneas si existen
 -- Comprobar si la clave foránea FK_r_partido_provincia_partido_ce1 existe y eliminarla
@@ -8,7 +8,7 @@ SELECT CONSTRAINT_NAME
 FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
 WHERE TABLE_NAME = 'r_partido_provincia'
   AND CONSTRAINT_NAME = 'FK_r_partido_provincia_partido_ce1'
-  AND TABLE_SCHEMA = 'elecciones';
+  AND TABLE_SCHEMA = 'partidos_politicos';
 
 -- Eliminar la clave foránea FK_r_partido_provincia_partido_ce1 si existe
 ALTER TABLE r_partido_provincia
@@ -19,16 +19,16 @@ SELECT CONSTRAINT_NAME
 FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
 WHERE TABLE_NAME = 'r_partido_provincia'
   AND CONSTRAINT_NAME = 'FK_r_partido_provincia_partido_ce2'
-  AND TABLE_SCHEMA = 'elecciones';
+  AND TABLE_SCHEMA = 'partidos_politicos';
 
 -- Eliminar la clave foránea FK_r_partido_provincia_partido_ce2 si existe
 ALTER TABLE r_partido_provincia
 DROP FOREIGN KEY FK_r_partido_provincia_partido_ce2;
 
 -- Eliminar tablas si existen
+DROP TABLE IF EXISTS r_partido_provincia;
 DROP TABLE IF EXISTS partido;
 DROP TABLE IF EXISTS provincia;
-DROP TABLE IF EXISTS r_partido_provincia;
 
 -- Crear las tablas
 CREATE TABLE partido (
