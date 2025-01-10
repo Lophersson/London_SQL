@@ -1,0 +1,70 @@
+-- Crear la base de datos y usarla
+IF EXISTS (SELECT * FROM sys.databases WHERE name = 'partidos_politicos')
+    DROP DATABASE partidos_politicos;
+CREATE DATABASE partidos_politicos;
+USE partidos_politicos;
+
+-- Eliminar tablas si existen
+IF OBJECT_ID('r_partido_provincia', 'U') IS NOT NULL DROP TABLE r_partido_provincia;
+IF OBJECT_ID('partido', 'U') IS NOT NULL DROP TABLE partido;
+IF OBJECT_ID('provincia', 'U') IS NOT NULL DROP TABLE provincia;
+
+-- Crear las tablas
+
+CREATE TABLE partido (
+    partido_id VARCHAR(32) NOT NULL,
+    nombre_partido VARCHAR(150) NOT NULL,
+    CONSTRAINT PK_partido PRIMARY KEY (partido_id)
+);
+CREATE UNIQUE INDEX CC_partido_nombre_partido ON partido(nombre_partido);
+
+CREATE TABLE provincia (
+    provincia_id VARCHAR(32) NOT NULL,
+    nombre_provincia VARCHAR(150) NOT NULL,
+    CONSTRAINT PK_provincia PRIMARY KEY (provincia_id)
+);
+CREATE UNIQUE INDEX CC_provincia_nombre_provinicia ON provincia(nombre_provincia);
+
+CREATE TABLE r_partido_provincia (
+    partido_id VARCHAR(32) NOT NULL,
+    provincia_id VARCHAR(32) NOT NULL,
+    numero_votos INT NOT NULL,
+    CONSTRAINT PK_r_partido_provincia PRIMARY KEY (partido_id, provincia_id)
+);
+
+-- Añadir las claves foráneas
+ALTER TABLE r_partido_provincia
+ADD CONSTRAINT FK_r_partido_provincia_partido_ce1
+FOREIGN KEY (partido_id) REFERENCES partido(partido_id) ON DELETE CASCADE;
+
+ALTER TABLE r_partido_provincia
+ADD CONSTRAINT FK_r_partido_provincia_partido_ce2
+FOREIGN KEY (provincia_id) REFERENCES provincia(provincia_id) ON DELETE CASCADE;
+
+-- Verificar y eliminar las claves foráneas si existen
+
+-- Comprobar si la clave foránea FK_r_partido_provincia_partido_ce1 existe y eliminarla
+IF EXISTS (
+    SELECT CONSTRAINT_NAME
+    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+    WHERE TABLE_NAME = 'r_partido_provincia'
+      AND CONSTRAINT_NAME = 'FK_r_partido_provincia_partido_ce1'
+      AND TABLE_SCHEMA = 'partidos_politicos'
+)
+BEGIN
+    ALTER TABLE r_partido_provincia
+    DROP CONSTRAINT FK_r_partido_provincia_partido_ce1;
+END;
+
+-- Comprobar si la clave foránea FK_r_partido_provincia_partido_ce2 existe y eliminarla
+IF EXISTS (
+    SELECT CONSTRAINT_NAME
+    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+    WHERE TABLE_NAME = 'r_partido_provincia'
+      AND CONSTRAINT_NAME = 'FK_r_partido_provincia_partido_ce2'
+      AND TABLE_SCHEMA = 'partidos_politicos'
+)
+BEGIN
+    ALTER TABLE r_partido_provincia
+    DROP CONSTRAINT FK_r_partido_provincia_partido_ce2;
+END;
