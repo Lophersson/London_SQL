@@ -1,0 +1,7 @@
+CREATE TABLE partido (
+    id_partido varchar(32) NOT NULL,
+    nombre_partido varchar(150) NOT NULL,
+    CONSTRAINT PK_partido PRIMARY KEY (id_partido)
+);
+CREATE UNIQUE INDEX CC_partido_nombre_partido ON partido(nombre_partido);
+---
