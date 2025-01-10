@@ -38,15 +38,17 @@ CREATE TABLE recinto (
 
 -- Crear la tabla animal
 CREATE TABLE animal (
-    id INT NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR(150) NOT NULL,
-    especie_id INT NOT NULL,
-    recinto_codigo INT NOT NULL,
-    CONSTRAINT PK_recinto PRIMARY KEY (codigo)
+    id varchar(32) NOT NULL AUTO_INCREMENT,
+    nombre varcahar(150) NOT NULL,
+    especie_id varchar(32) NOT NULL,
+    recinto_codigo varchar(32) NOT NULL,
+    CONSTRAINT PK_animal PRIMARY KEY (id),
+    CONSTRAINT FK_animal_especie FOREIGN KEY (especie_id) REFERENCES especie(id) ON DELETE CASCADE,
+    CONSTRAINT FK_animal_recinto FOREIGN KEY (recinto_codigo) REFERENCES recinto(codigo) ON DELETE CASCADE
 );
-    CREATE UNIQUE INDEX CC_recinto ON recinto(nombre);
 
--- Verificar y eliminar claves foráneas si existen
+-- Crear índice único en nombre (solo si se desea que el nombre sea único)
+CREATE UNIQUE INDEX CC_animal ON animal(nombre);
 
 -- Comprobar y eliminar la clave foránea FK_animal_especie_id
 SELECT CONSTRAINT_NAME
@@ -81,4 +83,19 @@ WHERE TABLE_NAME = 'recinto'
 ALTER TABLE recinto
 DROP FOREIGN KEY FK_recinto_area_codigo;
 
--- Ahora las claves foráneas se eliminarán si existían y las tablas se han creado correctamente
+-- Añadir las claves foráneas
+
+-- Añadir la clave foránea FK_animal_especie_id
+ALTER TABLE animal
+ADD CONSTRAINT FK_animal_especie_id
+FOREIGN KEY (especie_id) REFERENCES especie(id) ON DELETE CASCADE;
+
+-- Añadir la clave foránea FK_animal_recinto_codigo
+ALTER TABLE animal
+ADD CONSTRAINT FK_animal_recinto_codigo
+FOREIGN KEY (recinto_codigo) REFERENCES recinto(codigo) ON DELETE CASCADE;
+
+-- Añadir la clave foránea FK_recinto_area_codigo
+ALTER TABLE recinto
+ADD CONSTRAINT FK_recinto_area_codigo
+FOREIGN KEY (area_codigo) REFERENCES area(codigo) ON DELETE CASCADE;
