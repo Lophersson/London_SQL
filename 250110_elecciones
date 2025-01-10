@@ -1,4 +1,5 @@
 -- Crear la base de datos y usarla
+DROP DATABASE IF EXISTS partidos_politicos;
 CREATE DATABASE IF NOT EXISTS partidos_politicos;
 USE partidos_politicos;
 
