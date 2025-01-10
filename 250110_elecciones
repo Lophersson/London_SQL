@@ -1,11 +1,36 @@
+-- Crear la base de datos y usarla
 CREATE DATABASE IF NOT EXISTS elecciones;
-
 USE elecciones;
 
+-- Eliminar las claves foráneas si existen
+-- Comprobar si la clave foránea FK_r_partido_provincia_partido_ce1 existe y eliminarla
+SELECT CONSTRAINT_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'r_partido_provincia'
+  AND CONSTRAINT_NAME = 'FK_r_partido_provincia_partido_ce1'
+  AND TABLE_SCHEMA = 'elecciones';
+
+-- Eliminar la clave foránea FK_r_partido_provincia_partido_ce1 si existe
+ALTER TABLE r_partido_provincia
+DROP FOREIGN KEY FK_r_partido_provincia_partido_ce1;
+
+-- Comprobar si la clave foránea FK_r_partido_provincia_partido_ce2 existe y eliminarla
+SELECT CONSTRAINT_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'r_partido_provincia'
+  AND CONSTRAINT_NAME = 'FK_r_partido_provincia_partido_ce2'
+  AND TABLE_SCHEMA = 'elecciones';
+
+-- Eliminar la clave foránea FK_r_partido_provincia_partido_ce2 si existe
+ALTER TABLE r_partido_provincia
+DROP FOREIGN KEY FK_r_partido_provincia_partido_ce2;
+
+-- Eliminar tablas si existen
 DROP TABLE IF EXISTS partido;
 DROP TABLE IF EXISTS provincia;
 DROP TABLE IF EXISTS r_partido_provincia;
 
+-- Crear las tablas
 CREATE TABLE partido (
     partido_id varchar(32) NOT NULL,
     nombre_partido varchar(150) NOT NULL,
@@ -27,6 +52,7 @@ CREATE TABLE r_partido_provincia (
     CONSTRAINT PK_r_partido_provincia PRIMARY KEY (partido_id, provincia_id)
 );
 
+-- Añadir las claves foráneas
 ALTER TABLE r_partido_provincia
 ADD CONSTRAINT FK_r_partido_provincia_partido_ce1
 FOREIGN KEY (partido_id) REFERENCES partido(partido_id) ON DELETE CASCADE;
@@ -34,5 +60,3 @@ FOREIGN KEY (partido_id) REFERENCES partido(partido_id) ON DELETE CASCADE;
 ALTER TABLE r_partido_provincia
 ADD CONSTRAINT FK_r_partido_provincia_partido_ce2
 FOREIGN KEY (provincia_id) REFERENCES provincia(provincia_id) ON DELETE CASCADE;
-
----
