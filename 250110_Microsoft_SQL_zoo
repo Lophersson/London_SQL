@@ -1,0 +1,109 @@
+-- Crear la base de datos
+IF EXISTS (SELECT * FROM sys.databases WHERE name = 'zoo')
+    DROP DATABASE zoo;
+CREATE DATABASE zoo;
+USE zoo;
+
+-- Eliminar tablas si existen
+IF OBJECT_ID('animal', 'U') IS NOT NULL DROP TABLE animal;
+IF OBJECT_ID('recinto', 'U') IS NOT NULL DROP TABLE recinto;
+IF OBJECT_ID('area', 'U') IS NOT NULL DROP TABLE area;
+IF OBJECT_ID('especie', 'U') IS NOT NULL DROP TABLE especie;
+
+-- Crear las tablas
+
+-- Crear la tabla especie
+CREATE TABLE especie (
+    id VARCHAR(32) NOT NULL,
+    nombre VARCHAR(150) NOT NULL,
+    CONSTRAINT PK_especie PRIMARY KEY (id)
+);
+CREATE UNIQUE INDEX CC_especie ON especie(nombre);
+
+-- Crear la tabla area
+CREATE TABLE area (
+    codigo VARCHAR(32) NOT NULL,
+    nombre VARCHAR(150) NOT NULL,
+    CONSTRAINT PK_area PRIMARY KEY (codigo)
+);
+CREATE UNIQUE INDEX CC_area ON area(nombre);
+
+-- Crear la tabla recinto
+CREATE TABLE recinto (
+    codigo INT NOT NULL IDENTITY(1,1),
+    nombre VARCHAR(150) NOT NULL,
+    area_codigo VARCHAR(32) NOT NULL,
+    CONSTRAINT PK_recinto PRIMARY KEY (codigo)
+);
+CREATE UNIQUE INDEX CC_recinto ON recinto(nombre);
+
+-- Crear la tabla animal
+CREATE TABLE animal (
+    id VARCHAR(32) NOT NULL IDENTITY(1,1),
+    nombre VARCHAR(150) NOT NULL,
+    especie_id VARCHAR(32) NOT NULL,
+    recinto_codigo VARCHAR(32) NOT NULL,
+    CONSTRAINT PK_animal PRIMARY KEY (id),
+    CONSTRAINT FK_animal_especie FOREIGN KEY (especie_id) REFERENCES especie(id) ON DELETE CASCADE,
+    CONSTRAINT FK_animal_recinto FOREIGN KEY (recinto_codigo) REFERENCES recinto(codigo) ON DELETE CASCADE
+);
+
+-- Crear índice único en nombre (solo si se desea que el nombre sea único)
+CREATE UNIQUE INDEX CC_animal ON animal(nombre);
+
+-- Comprobar y eliminar la clave foránea FK_animal_especie_id
+IF EXISTS (
+    SELECT CONSTRAINT_NAME
+    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+    WHERE TABLE_NAME = 'animal'
+      AND CONSTRAINT_NAME = 'FK_animal_especie'
+      AND TABLE_SCHEMA = 'zoo'
+)
+BEGIN
+    ALTER TABLE animal
+    DROP CONSTRAINT FK_animal_especie;
+END;
+
+-- Comprobar y eliminar la clave foránea FK_animal_recinto_codigo
+IF EXISTS (
+    SELECT CONSTRAINT_NAME
+    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+    WHERE TABLE_NAME = 'animal'
+      AND CONSTRAINT_NAME = 'FK_animal_recinto'
+      AND TABLE_SCHEMA = 'zoo'
+)
+BEGIN
+    ALTER TABLE animal
+    DROP CONSTRAINT FK_animal_recinto;
+END;
+
+-- Comprobar y eliminar la clave foránea FK_recinto_area_codigo
+IF EXISTS (
+    SELECT CONSTRAINT_NAME
+    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+    WHERE TABLE_NAME = 'recinto'
+      AND CONSTRAINT_NAME = 'FK_recinto_area'
+      AND TABLE_SCHEMA = 'zoo'
+)
+BEGIN
+    ALTER TABLE recinto
+    DROP CONSTRAINT FK_recinto_area;
+END;
+
+-- Añadir las claves foráneas
+
+-- Añadir la clave foránea FK_animal_especie_id
+ALTER TABLE animal
+ADD CONSTRAINT FK_animal_especie
+FOREIGN KEY (especie_id) REFERENCES especie(id) ON DELETE CASCADE;
+
+-- Añadir la clave foránea FK_animal_recinto_codigo
+ALTER TABLE animal
+ADD CONSTRAINT FK_animal_recinto
+FOREIGN KEY (recinto_codigo) REFERENCES recinto(codigo) ON DELETE CASCADE;
+
+-- Añadir la clave foránea FK_recinto_area_codigo
+ALTER TABLE recinto
+ADD CONSTRAINT FK_recinto_area
+FOREIGN KEY (area_codigo) REFERENCES area(codigo) ON DELETE CASCADE;
+---
