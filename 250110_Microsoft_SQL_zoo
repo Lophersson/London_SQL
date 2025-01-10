@@ -30,7 +30,7 @@ CREATE UNIQUE INDEX CC_area ON area(nombre);
 
 -- Crear la tabla recinto
 CREATE TABLE recinto (
-    codigo INT NOT NULL IDENTITY(1,1),
+    codigo VARCHAR(32) NOT NULL,
     nombre VARCHAR(150) NOT NULL,
     area_codigo VARCHAR(32) NOT NULL,
     CONSTRAINT PK_recinto PRIMARY KEY (codigo)
@@ -39,7 +39,7 @@ CREATE UNIQUE INDEX CC_recinto ON recinto(nombre);
 
 -- Crear la tabla animal
 CREATE TABLE animal (
-    id VARCHAR(32) NOT NULL IDENTITY(1,1),
+    id VARCHAR(32) NOT NULL,
     nombre VARCHAR(150) NOT NULL,
     especie_id VARCHAR(32) NOT NULL,
     recinto_codigo VARCHAR(32) NOT NULL,
