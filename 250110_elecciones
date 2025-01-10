@@ -1,7 +1,38 @@
+CREATE DATABASE IF NOT EXISTS elecciones;
+
+USE elecciones;
+
+DROP TABLE IF EXISTS partido;
+DROP TABLE IF EXISTS provincia;
+DROP TABLE IF EXISTS r_partido_provincia;
+
 CREATE TABLE partido (
-    id_partido varchar(32) NOT NULL,
+    partido_id varchar(32) NOT NULL,
     nombre_partido varchar(150) NOT NULL,
-    CONSTRAINT PK_partido PRIMARY KEY (id_partido)
+    CONSTRAINT PK_partido PRIMARY KEY (partido_id)
 );
 CREATE UNIQUE INDEX CC_partido_nombre_partido ON partido(nombre_partido);
+
+CREATE TABLE provincia (
+    provincia_id varchar(32) NOT NULL,
+    nombre_provincia varchar(150) NOT NULL,
+    CONSTRAINT PK_provincia PRIMARY KEY (provincia_id)
+);
+CREATE UNIQUE INDEX CC_provincia_nombre_provinicia ON provincia(nombre_provincia);
+
+CREATE TABLE r_partido_provincia (
+    partido_id varchar(32) NOT NULL,
+    provincia_id varchar(32) NOT NULL,
+    numero_votos INT NOT NULL,
+    CONSTRAINT PK_r_partido_provincia PRIMARY KEY (partido_id, provincia_id)
+);
+
+ALTER TABLE r_partido_provincia
+ADD CONSTRAINT FK_r_partido_provincia_partido_ce1
+FOREIGN KEY (partido_id) REFERENCES partido(partido_id) ON DELETE CASCADE;
+
+ALTER TABLE r_partido_provincia
+ADD CONSTRAINT FK_r_partido_provincia_partido_ce2
+FOREIGN KEY (provincia_id) REFERENCES provincia(provincia_id) ON DELETE CASCADE;
+
 ---
