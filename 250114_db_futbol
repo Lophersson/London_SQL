@@ -1,0 +1,59 @@
+-- Crear base de datos
+CREATE DATABASE db_futbol;
+
+-- Usar la base de datos
+USE db_futbol;
+
+-- Eliminar restricciones y tablas si existen (orden adecuado por dependencias)
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS jugador_equipo;
+DROP TABLE IF EXISTS equipo;
+DROP TABLE IF EXISTS jugador;
+DROP TABLE IF EXISTS campo;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- Crear tabla CAMPO
+CREATE TABLE campo (
+    id VARCHAR(32) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    ano_creacion YEAR NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY idx_campo_nombre (nombre)
+);
+
+-- Crear tabla JUGADOR
+CREATE TABLE jugador (
+    dni VARCHAR(32) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    fecha_nac DATE NOT NULL,
+    PRIMARY KEY (dni)
+);
+
+-- Crear tabla EQUIPO
+CREATE TABLE equipo (
+    id VARCHAR(32) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    campo_id VARCHAR(32) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY idx_equipo_nombre (nombre),
+    CONSTRAINT fk_equipo_ce FOREIGN KEY (campo_id) REFERENCES campo(id) ON DELETE CASCADE
+);
+
+-- Crear tabla JUGADOR_EQUIPO
+CREATE TABLE jugador_equipo (
+    id VARCHAR(32) NOT NULL,
+    jugador_dni VARCHAR(32) NOT NULL,
+    equipo_id VARCHAR(32) NOT NULL,
+    fecha_alta DATE NOT NULL,
+    fecha_baja DATE NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY idx_jugador_equipo_cc1 (jugador_dni, equipo_id, fecha_alta),
+    CONSTRAINT fk_jugador_equipo_ce1 FOREIGN KEY (jugador_dni) REFERENCES jugador(dni) ON DELETE CASCADE,
+    CONSTRAINT fk_jugador_equipo_ce2 FOREIGN KEY (equipo_id) REFERENCES equipo(id) ON DELETE CASCADE
+);
+
+-- Opcional: Crear índices adicionales
+CREATE INDEX idx_equipo_campo ON equipo (campo_id);
+CREATE INDEX idx_jugador_equipo_jugador ON jugador_equipo (jugador_dni);
