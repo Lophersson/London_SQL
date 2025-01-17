@@ -1,0 +1,43 @@
+@startuml
+entity "Actividades" as Actividades {
+  + codigo_act : INT <<PK>>
+  --
+  nombre : VARCHAR(50)
+  cupo_min : INT
+  cupo_max : INT
+  id_sala : VARCHAR(50) <<FK>>
+  dni_empleado : VARCHAR(20) <<FK>>
+}
+
+entity "Empleados" as Empleados {
+  + dni_empleado : VARCHAR(20) <<PK>>
+  --
+  nombre : VARCHAR(100)
+  domicilio : VARCHAR(100)
+  telefono : VARCHAR(20)
+}
+
+entity "R_Socio_Actividad" as R_Socio_Actividad {
+  + dni_socio : VARCHAR(20) <<FK>>
+  + codigo_act : INT <<FK>>
+}
+
+entity "Socios" as Socios {
+  + dni_socio : VARCHAR(20) <<PK>>
+  --
+  nombre : VARCHAR(100)
+  fecha_nac : DATE
+  telefono : VARCHAR(20)
+  cta_banco : VARCHAR(20)
+}
+
+entity "Salas" as Salas {
+  + nombre : VARCHAR(50) <<PK>>
+  + id_sala : INT <<PK>>
+}
+
+Actividades ||--o{ R_Socio_Actividad : "codigo_act"
+Socios ||--o{ R_Socio_Actividad : "dni_socio"
+Actividades ||--o{ Salas : "id_sala"
+Empleados ||--o{ Actividades : "dni_empleado"
+@enduml
