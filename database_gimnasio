@@ -1,0 +1,102 @@
+-- Crear la base de datos
+CREATE DATABASE gimnasio;
+
+-- Usar la base de datos
+USE gimnasio;
+
+-- Crear la tabla de Actividades
+CREATE TABLE Actividades (
+    id_actividad INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_actividad VARCHAR(50) NOT NULL
+);
+
+-- Insertar actividades
+INSERT INTO Actividades (nombre_actividad) 
+VALUES ('Zumba'), ('Spinning'), ('Yoga'), ('Cardio');
+
+-- Crear la tabla de Empleados
+CREATE TABLE Empleados (
+    id_empleado INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_empleado VARCHAR(100) NOT NULL
+);
+
+-- Insertar empleados
+INSERT INTO Empleados (nombre_empleado) 
+VALUES ('William'), ('Vanessa'), ('Priscila'), ('Wilson');
+
+-- Crear la tabla de Aulas
+CREATE TABLE Aulas (
+    id_aula INT AUTO_INCREMENT PRIMARY KEY,
+    numero_aula INT NOT NULL
+);
+
+-- Insertar aulas
+INSERT INTO Aulas (numero_aula) 
+VALUES (1), (2), (3);
+
+-- Crear la tabla de Horarios
+CREATE TABLE Horarios (
+    id_horario INT AUTO_INCREMENT PRIMARY KEY,
+    dia VARCHAR(20) NOT NULL,
+    hora VARCHAR(20) NOT NULL,
+    id_aula INT,
+    id_actividad INT,
+    id_empleado INT,
+    FOREIGN KEY (id_aula) REFERENCES Aulas(id_aula),
+    FOREIGN KEY (id_actividad) REFERENCES Actividades(id_actividad),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+);
+
+-- Insertar horarios
+INSERT INTO Horarios (dia, hora, id_aula, id_actividad, id_empleado) 
+VALUES 
+('Lunes', '09:00-10:00', 1, 1, 1),
+('Lunes', '09:00-10:00', 2, NULL, NULL),
+('Lunes', '09:00-10:00', 3, 2, 2),
+('Martes', '09:00-10:00', 1, NULL, NULL),
+('Martes', '09:00-10:00', 2, 3, 3),
+('Martes', '09:00-10:00', 3, NULL, NULL),
+('Miércoles', '09:00-10:00', 1, NULL, NULL),
+('Miércoles', '09:00-10:00', 2, NULL, NULL),
+('Miércoles', '09:00-10:00', 3, 2, 2),
+('Jueves', '09:00-10:00', 1, NULL, NULL),
+('Jueves', '09:00-10:00', 2, 3, 3),
+('Jueves', '09:00-10:00', 3, NULL, NULL),
+('Viernes', '09:00-10:00', 1, NULL, NULL),
+('Viernes', '09:00-10:00', 2, NULL, NULL),
+('Viernes', '09:00-10:00', 3, 2, 2);
+
+-- Crear la tabla de Miembros
+CREATE TABLE Miembros (
+    id_miembro INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_miembro VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    telefono VARCHAR(20) NOT NULL
+);
+
+-- Insertar miembros
+INSERT INTO Miembros (nombre_miembro, fecha_nacimiento, telefono) 
+VALUES 
+('Juan Pérez', '1985-05-14', '123456789'),
+('María López', '1990-03-22', '987654321'),
+('Carlos Gómez', '1980-08-10', '112233445'),
+('Ana Sánchez', '1992-11-01', '556677889');
+
+-- Crear la tabla de Asistencia (relacionar miembros con horarios)
+CREATE TABLE Asistencia (
+    id_asistencia INT AUTO_INCREMENT PRIMARY KEY,
+    id_miembro INT,
+    id_horario INT,
+    FOREIGN KEY (id_miembro) REFERENCES Miembros(id_miembro),
+    FOREIGN KEY (id_horario) REFERENCES Horarios(id_horario)
+);
+
+-- Insertar asistencia
+INSERT INTO Asistencia (id_miembro, id_horario) 
+VALUES 
+(1, 1), 
+(2, 3), 
+(3, 5), 
+(4, 7),
+(1, 2),
+(2, 6);
