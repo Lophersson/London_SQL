@@ -1,0 +1,83 @@
+-- Crear la base de datos
+CREATE DATABASE IF NOT EXISTS Biblioteca;
+USE Biblioteca;
+
+-- Crear la tabla Socios
+CREATE TABLE Socios (
+    id_socio INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    dni VARCHAR(15) UNIQUE NOT NULL,
+    telefono VARCHAR(15),
+    email VARCHAR(100),
+    direccion VARCHAR(255),
+    fecha_alta DATE NOT NULL
+);
+
+-- Crear la tabla Autores
+CREATE TABLE Autores (
+    id_autor INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    nacionalidad VARCHAR(50)
+);
+
+-- Crear la tabla Categorias
+CREATE TABLE Categorias (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL
+);
+
+-- Crear la tabla Libros
+CREATE TABLE Libros (
+    id_libro INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    id_autor INT,
+    id_categoria INT,
+    isbn VARCHAR(20) UNIQUE NOT NULL,
+    editorial VARCHAR(100),
+    año_publicacion YEAR,
+    cantidad INT NOT NULL,
+    FOREIGN KEY (id_autor) REFERENCES Autores(id_autor),
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
+);
+
+-- Crear la tabla Prestamos
+CREATE TABLE Prestamos (
+    id_prestamo INT AUTO_INCREMENT PRIMARY KEY,
+    id_socio INT NOT NULL,
+    id_libro INT NOT NULL,
+    fecha_prestamo DATE NOT NULL,
+    fecha_devolucion DATE NOT NULL,
+    devuelto BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (id_socio) REFERENCES Socios(id_socio),
+    FOREIGN KEY (id_libro) REFERENCES Libros(id_libro)
+);
+
+-- Insertar registros en Socios
+INSERT INTO Socios (nombre, apellido, dni, telefono, email, direccion, fecha_alta) VALUES
+('Juan', 'Pérez', '12345678A', '600123456', 'juan.perez@example.com', 'Calle Falsa 123', '2025-01-01'),
+('María', 'García', '87654321B', '700987654', 'maria.garcia@example.com', 'Avenida Siempreviva 456', '2025-01-10');
+
+-- Insertar registros en Autores
+INSERT INTO Autores (nombre, apellido, nacionalidad) VALUES
+('Gabriel', 'García Márquez', 'Colombiana'),
+('Jane', 'Austen', 'Británica'),
+('George', 'Orwell', 'Británica');
+
+-- Insertar registros en Categorias
+INSERT INTO Categorias (nombre) VALUES
+('Ficción'),
+('Ciencia'),
+('Historia');
+
+-- Insertar registros en Libros
+INSERT INTO Libros (titulo, id_autor, id_categoria, isbn, editorial, año_publicacion, cantidad) VALUES
+('Cien años de soledad', 1, 1, '9781234567890', 'Editorial Sudamericana', 1967, 5),
+('Orgullo y prejuicio', 2, 1, '9789876543210', 'Penguin Books', 1813, 3),
+('1984', 3, 1, '9781122334455', 'Secker & Warburg', 1949, 4);
+
+-- Insertar registros en Prestamos
+INSERT INTO Prestamos (id_socio, id_libro, fecha_prestamo, fecha_devolucion, devuelto) VALUES
+(1, 1, '2025-01-15', '2025-01-22', FALSE),
+(2, 3, '2025-01-16', '2025-01-23', TRUE);
